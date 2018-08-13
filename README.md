@@ -1,5 +1,6 @@
 # Helper for vpnmaster/homeassistant-custom-components
-Little helper for creating climate INI File for [vpnmaster/homeassistant-custom-components](https://github.com/vpnmaster/homeassistant-custom-components) based on [broadlink_cli](https://github.com/mjg59/python-broadlink/blob/master/cli).
+Little helper for creating *air conditioner* INI File for [vpnmaster/homeassistant-custom-components](https://github.com/vpnmaster/homeassistant-custom-components) based on [broadlink_cli](https://github.com/mjg59/python-broadlink/blob/master/cli).
+
 
 ## Requirements
 * python2
@@ -9,9 +10,9 @@ Little helper for creating climate INI File for [vpnmaster/homeassistant-custom-
 
 Differences with [broadlink_cli](https://github.com/mjg59/python-broadlink/blob/master/cli):
 * **--learnfile**: work in _append_ instead of _write_
-* **--base64**: added for generate output in base64 format for compatibility with home-hassistant
-* **--prefix**: added for generate prefix string in output file
-* **--start**: added for generate prefix string in output file, indicate the starting temperature 
+* **--base64**: added to generate output in base64 format for compatibility with home-hassistant
+* **--prefix**: added to generate prefix string in output file
+* **--start**: added to generate prefix string in output file, indicate the starting temperature 
 
 The scripts loop until no signal send for 30 second, or force stop the script (_CRTL+C_). 
 
