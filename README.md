@@ -1,8 +1,45 @@
 # Helper for vpnmaster/homeassistant-custom-components
-Little helper for creating climate INI File for vpnmaster/homeassistant-custom-components based on [broadlink_cli](https://github.com/mjg59/python-broadlink/blob/master/cli/broadlink_cli).
+Little helper for creating climate INI File for [vpnmaster/homeassistant-custom-components](https://github.com/vpnmaster/homeassistant-custom-components) based on [broadlink_cli](https://github.com/mjg59/python-broadlink/blob/master/cli).
 
 ## Requirements
-- python2
-- [broadlink_cli](https://github.com/mjg59/python-broadlink/blob/master/cli/broadlink_cli): `sudo pip install broadlink`
+* python2
+* [python-broadlink](https://github.com/mjg59/python-broadlink/blob/master/cli/broadlink_cli): `sudo pip install broadlink`
 
 ## Command line interface
+
+Differences with [broadlink_cli](https://github.com/mjg59/python-broadlink/blob/master/cli):
+* **--learnfile**: work in _append_ instead of _write_
+* **--base64**: added for generate output in base64 format for compatibility with home-hassistant
+* **--prefix**: added for generate prefix string in output file
+* **--start**: added for generate prefix string in output file, indicate the starting temperature 
+
+The scripts loop until no signal send for 30 second, or force stop the script (_CRTL+C_). 
+
+#### Syntax:
+```bash
+broadlink2vhacc --device @rm3mini.device --base64 --learnfile <filename> --prefix <prefix> --start <number>
+```
+#### Example:
+```bash
+broadlink2vhacc --device @rm3mini.device --base64 --learnfile heat_low.codes --prefix low --start 16
+```
+Command Line Output:
+```
+Learning auto 16...
+Saving to heat_low.codes
+Learning auto 17...
+Saving to heat_low.codes
+Learning auto 18...
+Saving to heat_low.codes
+Learning auto 19...
+Saving to heat_low.codes
+Learning auto 20...
+No data received...
+```
+File sample:
+```
+low_16 = JgAWAnE3DygQDBAMEAwQDBAMDw0PDQ8NDw0ODRAMDykQDBAMEAwPDQ8NDw0PDBAMEAwQDBAMEAwQDA8NDw0PDQ8MECgQDBAoECgPKQ8oECgQKBAMECgPKQ8oECgQKBAoDykPKBAoEAwQDBAMEAwPDQ8NDg4PDBAMEAwQKBAoDw0PDQ8pDygQKBAoEAwPDQ8pDygQDBAMEAwQKA8NDw0PKBAMEAwPKRAoEAwPKQ8oDw0PKRAoEAwPKA8pDw0QDA8NDw0PKQ8NDw0ODg4pECgPKQ8pDw0OKg4NDw0PDQ8NDw0PDQ8pDg4OKg4pDykPKQ8pDioODQ8pDw0PDQ8NDw0PDQ4ODg4ODQ8pDykPKQ8pDikPKQ8pDykPDQ8NDg4ODg4NDw0PDQ8NDykPKQ4qDikPKQ8pDykPKQ4NDw0PDQ8NDw0PDQ8NDw0PKQ4pDykPKQ8pDykOKQ8pDw0PDQ8NDw0PDQ8NDg4ODgwrDykPKQ8pDioOKRAoDykPDQ8NDw0ODg4ODg0PDQ8NECgQKA8pDygQKBAoECgPKQ8NDygQKBAMDykPDQ8NDw0PKBAMEAwQKBAMECgPKQ8oECgQDBAMEAwPKQ8NDygQKBAMECgQKA8pDwwQKBAMEAwQKA8pDw0PDBAoEAwQDBAMEAwPDQ8pDygQDA8pECgPKQ8NDw0PDA8pEAwPDRAMEAwPKQ8pDygQDBAoECgPKQ8oEAANBQ8o
+low_17 = JgAWAnI2DikPDQ8NDw0PDRAMDw0PDQ4ODg0PDQ8NDykPDQ8NDw0PDQ8NDg4ODRAMDw0PDQ8NDw0PDQ8NDw0ODg4NDykPDQ8pDykPKQ4pDykPKRAMDykOKg4pDykPKRAoDykOKRAoDw0PDQ8NEAwPDQ4ODg4ODQ8NDw0PKQ8pDw0PDQ4qDikQKA8pDw0PDQ4qDikPDQ8NDw0PKQ8NDw0OKQ8NDw0PKQ8pDw0PKQ4pDw0PKQ8pDw0PDQ8NDikPDQ8NDw0PKQ8NDykOKg4NDykPKQ8pDw0OKg4NDw0PKQ8NDw0PDQ8pDg4OKQ8pEAwPKQ8pDioODQ8pDw0PDQ8NDw0PDQ4ODg4ODQ8pDykPKQ8pDikPKQ8pDykPDQ8NDw0ODg4NDw0PDQ8NDykPKQ4qDikPKRAoDykPKQ8NDg0PDQ8NDw0PDQ8NDw0PKQ8oDykQKBAoDykPKQ8oEAwQDA8NDw0PDQ8NDw0PDQ4pECgQKA8pDykPKBAoECgQDA8NDw0PDQ4ODwwQDBAMECgQKA8pDygQKBAoECgQKA8NDygQKBAMDykQDA8NDw0PKBAMEAwQKBAMDykPKQ8oECgQDBAMEAwPKQ8NDygPKRAMDykQKA8pDwwPKRAMDw0QKBAoDw0PDA8pEAwQDA8NDw0PDQ8pDygQDA8pDykQKA8NDw0ODQ8pEAwPDQ8NDw0PKQ8pDygQDA8pECgPKQ8oEAANBQ4p
+low_18 = JgAWAnE2ECgPDQ8NDg4PDBAMEAwQDBAMEAwQDA8NDykPDBAMEAwQDBAMDw0QDA8NDw0ODg8NDg0QDBAMEAwPDRAMECgPDQ8oECgQKBAoDykPKBAMECgQKBAoDykPKBAoECgQKA8pDw0PDBAMEAwQDA8NDw0QDA8NDw0PKQ8oEAwQDBAoECgPKQ8oEAwQDA8pECgPDQ8NDwwQKBAMDw0QKBAMDw0PKQ8oEAwQKBAoEAwPKQ8oEAwQDBAMECgQDA8NDw0PKBAMECgQKA8NDykPKBAoEAwQKBAMDw0PDQ8oEAwQDBAoEAwQKA8pDygQDA8pECgQDA8pDw0ODRAMDw0PDQ8NDw0PDQ8pDykPKBAoECgPKQ8pDygQDBAMEAwPDQ8NDw0ODg8NDikPKRAoECgPKQ8oECgPKRAMEAwPDQ8NDw0ODRAMDw0QKBAoDykPKQ8oECgQKA8pDw0ODg4NDw0PDQ8NDw0PDRAoDykPKBAoECgQKA8pDygQDA8NDw0PDQ8NDw0PDQ4ODioPKBAoECgPKQ4qDikQKBAMDykPKQ4ODikQDA8NDw0PKQ4ODg4OKg4NDykPKQ8pDykPDQ4NDw0PKRAMDykOKg4ODikPKRAoDw0PKQ8NDg4OKQ8pDw0PDQ8pDw0ODg8MDw0PDQ8pECgPDQ4qDikQKBAMDw0PDQ8pDw0ODg4NDw0PKRAoDykPDQ4pDykQKBAoDwANBRAo
+low_19 = JgAWAnE1ESgQDBAMEAwQDBAMEAwPDQ4ODw0PDBAMECgQDA8NEAwPDQ8NDw0PDQ8MEAwQDBAMDw0QDBAMDw0PDQ8NDygQDBAoECgPKQ8pDygQKBAMECgPKQ8pDygQKBAoDykPKBAoEAwQDA8NEAwPDQ8NDg4PDQ8MEAwQKBAoEAwPDQ8pDygQKBAoEAwPDQ8pDygQDA8NEAwQKBAMDw0PKQ8MEAwQKBAoEAwPKQ8oEAwQKBAoEAwPDQ8NDykPDBAMEAwPKRAMDykPKQ8MECgQKBAoDw0PKQ8MDw0QKBAoEAwPDQ8pDw0PKBAoEAwQDA8pDykPDBAoEAwQDBAMEAwPDQ8NDg4PDQ8oECgQKA8pDykPKBAoECgQDA8NDw0PDQ8MEAwQDA8NECgQKA8pDygQKBAoECgPKQ8NDg0QDBAMEAwQDBAMDw0QKA8pDygQKBAoECgPKQ8oEAwPDRAMEAwQDA8NDw0ODg8oECgQKBAoDykPKQ8oDykQDBAMDw0PDQ4ODwwQDBAMECgQKA8pDykPKBAoECgQKA8NDygQKBAMECgQDBAMDw0OKg8MEAwQKBAMDykPKQ8oECgQDBAMDw0QKA8NDykPKBAMECgQKA8pDw0PKBAMDw0QKBAoDw0PDQ8oEAwQDBAMEAwPDRAoDykPDBAoECgQKA8NDw0PDQ8oEAwQDA8NEAwQKA8pDygQDA8pECgQKA8pDgANBQ8o
+```
