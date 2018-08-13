@@ -1,5 +1,5 @@
 # Helper for vpnmaster/homeassistant-custom-components
-Little helper for creating *air conditioner* INI File for [vpnmaster/homeassistant-custom-components](https://github.com/vpnmaster/homeassistant-custom-components) based on [broadlink_cli](https://github.com/mjg59/python-broadlink/blob/master/cli).
+Little helper for creating **air conditioner** INI File for [vpnmaster/homeassistant-custom-components](https://github.com/vpnmaster/homeassistant-custom-components) based on [broadlink_cli](https://github.com/mjg59/python-broadlink/blob/master/cli).
 
 
 ## Requirements
