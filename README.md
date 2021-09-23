@@ -4,7 +4,7 @@ Little helper for creating **air conditioner** INI File for [vpnmaster/homeassis
 
 ## Requirements
 * python2
-* [python-broadlink](https://github.com/mjg59/python-broadlink/blob/master/cli/broadlink_cli): `sudo pip install broadlink`
+* [python-broadlink](https://github.com/mjg59/python-broadlink): `sudo pip install broadlink`
 
 ## Command line interface
 
